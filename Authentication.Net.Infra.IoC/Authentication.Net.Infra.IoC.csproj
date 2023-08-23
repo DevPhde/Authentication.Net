@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Authentication.Net.Application\Authentication.Net.Application.csproj" />
+    <ProjectReference Include="..\Authentication.Net.Domain\Authentication.Net.Domain.csproj" />
+    <ProjectReference Include="..\Authentication.Net.Infra.Data\Authentication.Net.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
