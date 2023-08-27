@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Net.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Net.API", "Authentication.Net.API\Authentication.Net.API.csproj", "{E6EC771C-5EE4-4F25-972D-61FAF48FFFC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Net.Domain", "Authentication.Net.Domain\Authentication.Net.Domain.csproj", "{7863E3AF-91AA-4B44-9D13-6A320E298165}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Net.Domain", "Authentication.Net.Domain\Authentication.Net.Domain.csproj", "{7863E3AF-91AA-4B44-9D13-6A320E298165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Net.xUnit", "Authentication.Net.xUnit\Authentication.Net.xUnit.csproj", "{242015B1-A44D-489B-A39A-3F168ADB47A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Net.xUnit", "Authentication.Net.xUnit\Authentication.Net.xUnit.csproj", "{242015B1-A44D-489B-A39A-3F168ADB47A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Net.Infra.Email", "Authentication.Net.Infra.Email\Authentication.Net.Infra.Email.csproj", "{7E2D608A-AB51-4520-881A-3DFB25068387}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{242015B1-A44D-489B-A39A-3F168ADB47A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{242015B1-A44D-489B-A39A-3F168ADB47A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{242015B1-A44D-489B-A39A-3F168ADB47A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E2D608A-AB51-4520-881A-3DFB25068387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E2D608A-AB51-4520-881A-3DFB25068387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E2D608A-AB51-4520-881A-3DFB25068387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E2D608A-AB51-4520-881A-3DFB25068387}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

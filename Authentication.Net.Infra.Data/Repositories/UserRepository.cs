@@ -31,7 +31,7 @@ namespace Authentication.Net.Infra.Data.Repositories
 		{
 			try
 			{
-				return await _userContext.Users.FindAsync(cpf);
+				return await _userContext.Users.FirstOrDefaultAsync(x => x.Cpf == cpf);
 			}
 			catch
 			{
@@ -43,7 +43,7 @@ namespace Authentication.Net.Infra.Data.Repositories
 		{
 			try
 			{
-				return await _userContext.Users.FindAsync(email);
+				return await _userContext.Users.FirstOrDefaultAsync(x => x.Email == email);
 			}
 			catch
 			{

@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Authentication.Net.Infra.IoC\Authentication.Net.Infra.IoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

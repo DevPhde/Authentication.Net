@@ -9,10 +9,13 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Authentication.Net.Domain\Authentication.Net.Domain.csproj" />
+    <ProjectReference Include="..\Authentication.Net.Infra.Email\Authentication.Net.Infra.Email.csproj" />
   </ItemGroup>
 
 </Project>

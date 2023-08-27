@@ -1,21 +1,17 @@
 ﻿using Authentication.Net.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Authentication.Net.Application.Interfaces
 {
 	public interface IUserServices
 	{
-		Task<IEnumerable<UserRegisterDTO>> GetUsers();
-		Task<UserDTO> GetById(int? id);
+		Task<string> AuthorizeUser(UserLoginDTO userDTO);
 		Task CreateNewUser(UserRegisterDTO userDTO);
+		Task DeleteUser(int id);
 		Task DisableUser(int id);
 		Task EnableUser(int id);
-		Task DeleteUser(int id);
-		Task<string> AuthorizeUser(UserLoginDTO userDTO);
+		Task<UserDTO> GetById(int id);
+		Task<IEnumerable<UserDTO>> GetUsers();
 		Task<string> RecoveryPassword(string email);
+		Task ConffirmAccount(string jwtKey);
 	}
 }
