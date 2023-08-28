@@ -1,5 +1,6 @@
 ﻿using Authentication.Net.Application.DTOs;
 using Authentication.Net.Application.Interfaces;
+using Authentication.Net.Application.Providers.PasswordGenerator;
 using Authentication.Net.Domain.Entities;
 using Authentication.Net.Domain.Events;
 using Authentication.Net.Domain.Exceptions;
@@ -37,7 +38,7 @@ namespace Authentication.Net.Application.UseCases
 
 				if (!user.IsEmailConfirmed)
 				{
-					_ = _mediator.Publish(new UserCreatedEvent(user.FullName, user.Email));
+					_ = _mediator.Publish(new UserCreatedWelcomeMailEvent(user.FullName, user.Email));
 					throw new UnauthorizedException("Account not confirmed. A confirmation email has been sent to the registered email address.");
 				}
 
@@ -98,7 +99,7 @@ namespace Authentication.Net.Application.UseCases
 
 				await _userRepository.Create(user);
 
-				_ = _mediator.Publish(new UserCreatedEvent(user.FullName, user.Email));
+				_ = _mediator.Publish(new UserCreatedWelcomeMailEvent(user.FullName, user.Email));
 			}
 			catch (DomainExceptionValidation ex)
 			{
@@ -111,34 +112,80 @@ namespace Authentication.Net.Application.UseCases
 
 		}
 
-		public Task DeleteUser(int id)
+		public async Task DeleteUser(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				User user = await _userRepository.GetById(id) ?? throw new BadRequestException("Invalid ID.");
+				await _userRepository.Remove(user);
+			}
+			catch (InternalErrorException)
+			{
+				throw;
+			}
 		}
 
-		public Task DisableUser(int id)
+		public async Task DisableUser(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				User user = await _userRepository.GetById(id) ?? throw new BadRequestException("Invalid ID.");
+				user.IsUserEnabled(false);
+				await _userRepository.Update(user);
+			}
+			catch (InternalErrorException)
+			{
+				throw;
+			}
 		}
 
-		public Task EnableUser(int id)
+		public async Task EnableUser(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				User user = await _userRepository.GetById(id) ?? throw new BadRequestException("Invalid ID.");
+				user.IsUserEnabled(true);
+				await _userRepository.Update(user);
+			}
+			catch (InternalErrorException)
+			{
+				throw;
+			}
 		}
 
-		public Task<UserDTO> GetById(int id)
+		public async Task<UserDTO> GetById(int id)
 		{
-			throw new NotImplementedException();
+			User user = await _userRepository.GetById(id) ?? throw new BadRequestException("Invalid Id.");
+			return _mapper.Map<UserDTO>(user);
 		}
 
-		public Task<IEnumerable<UserDTO>> GetUsers()
+		public async Task<IEnumerable<UserDTO>> GetUsers()
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var users = await _userRepository.GetUsers();
+				return _mapper.Map<IEnumerable<UserDTO>>(users);
+			}
+			catch (InternalErrorException)
+			{
+				throw;
+			}
 		}
 
-		public Task<string> RecoveryPassword(string email)
+		public async Task RecoveryPassword(string email)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				User user = await _userRepository.GetByEmail(email) ?? throw new BadRequestException("Email not registered.");
+				string newPassword = PasswordGenerator.Generate();
+				user.updatePassword(_cryptProvider.HashPassword(newPassword));
+				await _userRepository.Update(user);
+				_ = _mediator.Publish(new UserRecoveryPasswordSendMailEvent(user.FullName, user.Email, newPassword));
+			}
+			catch (InternalErrorException)
+			{
+				throw;
+			}
 		}
 	}
 }

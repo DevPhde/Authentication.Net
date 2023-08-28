@@ -50,6 +50,14 @@ namespace Authentication.Net.Domain.Entities
 		{
 			Auth = token;
 		}
+		public void updatePassword(string password)
+		{
+			Password = password;
+		}
+		public void IsUserEnabled(bool param)
+		{
+			IsActive = param;
+		}
 		private void UserValidation(string fullName, string email, string cpf, string password)
 		{
 			DomainExceptionValidation.When(string.IsNullOrWhiteSpace(fullName) || fullName.Length < 5, "Invalid Name. Name is required and must have more than 5 characters.");

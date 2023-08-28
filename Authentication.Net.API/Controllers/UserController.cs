@@ -75,5 +75,115 @@ namespace Authentication.Net.API.Controllers
 				return Unauthorized(ex.Message);
 			}
 		}
+
+		[HttpPost]
+		[Route("RecoveryPassword")]
+		public async Task<IActionResult> RecoveryPassword(RecoveryPasswordDTO recoveryDTO)
+		{
+			try
+			{
+				await _userServices.RecoveryPassword(recoveryDTO.Email);
+				return Ok("New password sent to registered email.");
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+			catch (BadRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet]
+		[Route("{id}")]
+		public async Task<IActionResult> GetById(int id)
+		{
+			try
+			{
+				var user = await _userServices.GetById(id);
+				return Ok(user);
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+			catch (BadRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet]
+		[Route("EnableUser/{id}")]
+		public async Task<IActionResult> EnableUser(int id)
+		{
+			try
+			{
+				await _userServices.EnableUser(id);
+				return Ok($"User ID: {id} Activated.");
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+			catch (BadRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+
+		[HttpGet]
+		[Route("DisableUser/{id}")]
+		public async Task<IActionResult> DisableUser(int id)
+		{
+			try
+			{
+				await _userServices.DisableUser(id);
+				return Ok($"User ID: {id} Disabled.");
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+			catch (BadRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpDelete]
+		[Route("{id}")]
+		public async Task<IActionResult> DeleteUser(int id)
+		{
+			try
+			{
+				await _userServices.DeleteUser(id);
+				return Ok($"User ID: {id} Deleted from Database.");
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+			catch (BadRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+		[HttpGet]
+		[Route("all")]
+		public async Task<IActionResult> GetUsers()
+		{
+			try
+			{
+				var users = await _userServices.GetUsers();
+				return Ok(users);
+			}
+			catch (InternalErrorException ex)
+			{
+				return StatusCode(500, new ObjectResult(ex.Message) { StatusCode = 500 });
+			}
+		}
 	}
 }

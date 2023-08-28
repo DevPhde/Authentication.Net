@@ -6,17 +6,17 @@ using MediatR;
 
 namespace Authentication.Net.Application.Events
 {
-	public class CreateUserEventHandler : INotificationHandler<UserCreatedEvent>
+	public class UserCreatedWelcomeMailEventHandler : INotificationHandler<UserCreatedWelcomeMailEvent>
 	{
 		private readonly IMailService _mailService;
 		private readonly IJwtProvider _jwtProvider;
-        public CreateUserEventHandler(IMailService mailService, IJwtProvider jwtProvider)
+        public UserCreatedWelcomeMailEventHandler(IMailService mailService, IJwtProvider jwtProvider)
         {
 			_mailService = mailService;
 			_jwtProvider = jwtProvider;
 			
         }
-        public Task Handle(UserCreatedEvent notification, CancellationToken cancellationToken)
+        public Task Handle(UserCreatedWelcomeMailEvent notification, CancellationToken cancellationToken)
 		{
 			string userIdentifier = _jwtProvider.GenerateJwt(notification.Email);
 			EmailModel emailModel = new(notification.Email, EmailTypeEnum.Welcome, notification.Name, userIdentifier);

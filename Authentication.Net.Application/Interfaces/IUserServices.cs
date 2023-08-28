@@ -11,7 +11,7 @@ namespace Authentication.Net.Application.Interfaces
 		Task EnableUser(int id);
 		Task<UserDTO> GetById(int id);
 		Task<IEnumerable<UserDTO>> GetUsers();
-		Task<string> RecoveryPassword(string email);
+		Task RecoveryPassword(string email);
 		Task ConffirmAccount(string jwtKey);
 	}
 }
