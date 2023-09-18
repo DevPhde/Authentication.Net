@@ -7,6 +7,8 @@ A API desenvolvida neste projeto tem como funcionalidades registrar usuários, a
 
 Para facilitar o gerenciamento e a execução do projeto, foi utilizado o Docker.
 
+Ao rodar o projeto, a documentação estará disponível em: ``` https://localhost:7011/swagger/index.html ```
+
 ## :wrench: Tecnologias Utilizadas
 
 C#, EntityFramework, MySQL, MediatR e Docker. 
