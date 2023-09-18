@@ -58,8 +58,7 @@ namespace Authentication.Net.Application.Providers.JWT
 			}
 			catch (Exception ex)
 			{
-                Console.WriteLine("error"+ ex.Message);
-				throw new Exception(ex.Message);
+				throw new InternalErrorException("Critical Error, contact support.");
             }
 		}
 
@@ -72,10 +71,9 @@ namespace Authentication.Net.Application.Providers.JWT
 				tokenHandler.ValidateToken(token, _validationParameters, out _);
                 return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-                Console.WriteLine(ex.Message);
-				throw new UnauthorizedException("Invalid Token.");
+				return false;
 			}
 		}
 	}

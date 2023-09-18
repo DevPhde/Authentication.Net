@@ -15,7 +15,7 @@ namespace Authentication.Net.API.Controllers
 		{
 			_userServices = userServices;
 		}
-		[HttpGet("/confirmation/user/{userIdentifier}")]
+		[HttpGet("/confirmation/User/{userIdentifier}")]
 		public async Task<IActionResult> ConffirmAccount(string userIdentifier)
 		{
 			try
@@ -116,6 +116,7 @@ namespace Authentication.Net.API.Controllers
 
 		[HttpGet]
 		[Route("EnableUser/{id}")]
+		[AuthorizationMiddleware]
 		public async Task<IActionResult> EnableUser(int id)
 		{
 			try
@@ -133,9 +134,9 @@ namespace Authentication.Net.API.Controllers
 			}
 		}
 
-
 		[HttpGet]
 		[Route("DisableUser/{id}")]
+		[AuthorizationMiddleware]
 		public async Task<IActionResult> DisableUser(int id)
 		{
 			try
@@ -173,6 +174,7 @@ namespace Authentication.Net.API.Controllers
 		}
 		[HttpGet]
 		[Route("all")]
+		[AuthorizationMiddleware]
 		public async Task<IActionResult> GetUsers()
 		{
 			try

@@ -26,7 +26,7 @@ namespace Authentication.Net.Infra.IoC
 			services.AddScoped<IMailService, MailService>();
 			services.AddScoped<IJwtProvider, JwtProvider>();
 			services.AddAutoMapper(typeof(DomainToDTOMapping));
-
+			
 			services.AddMediatR(cfg =>
 			cfg.RegisterServicesFromAssembly(typeof(UserServices).Assembly));
 			return services;

@@ -1,20 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Authentication.Net.Application.Interfaces;
+using Authentication.Net.Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Authentication.Net.API.Middleware
+public class AuthorizationMiddleware : TypeFilterAttribute
 {
-	public class AuthorizationMiddleware : ActionFilterAttribute
+	public AuthorizationMiddleware() : base(typeof(AuthorizationMiddlewareFilter))
 	{
-        public override void OnActionExecuting(ActionExecutingContext context)
+	}
+}
+
+public class AuthorizationMiddlewareFilter : IAsyncActionFilter
+{
+	private readonly IJwtProvider _jwtProvider;
+
+	public AuthorizationMiddlewareFilter(IJwtProvider jwtProvider)
+	{
+		_jwtProvider = jwtProvider;
+	}
+
+	public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+	{
+		try
 		{
-			string authorization = context.HttpContext.Request.Headers["authorization"];
-			if(string.IsNullOrEmpty(authorization))
+			string authorization = context.HttpContext.Request.Headers["Authorization"];
+			if (string.IsNullOrEmpty(authorization) || !_jwtProvider.IsTokenValid(authorization))
 			{
-				Console.WriteLine("empty");
+				var unauthorizedResult = new ObjectResult("Invalid or missing JWT token")
+				{
+					StatusCode = 401
+				};
+				context.Result = unauthorizedResult;
+				return;
 			}
-            Console.WriteLine("Middlware");
-			var header = context.HttpContext.Request.Headers["authorization"];
-            Console.WriteLine(header);
-			base.OnActionExecuting(context);
+			else
+			{
+				await next();
+			}
+		}
+		catch (InternalErrorException)
+		{
+			throw new Exception("Internal Error, contact the support.");
 		}
 	}
 }
