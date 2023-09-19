@@ -1,7 +1,7 @@
 # Authentication.Net
 
 ## :memo: Descrição do projeto
-Este é um projeto criado na plataforma .Net utilizando o framework .Net Core com a linguagem C#, com o objetivo de demonstrar minhas habilidades de abstração, arquitetura limpa(Clean Architecture) na plataforma .Net, Domain-Driven Design (DDD), princípios SOLID e demonstração da utilização de Pub/Sub para envio de emails assíncronos.
+Este é um projeto desenvolvido com o framework .Net utilizando a linguagem C#.O projeto tem como objetivo de demonstrar minhas habilidades de abstração, arquitetura limpa(Clean Architecture) na plataforma .Net, Domain-Driven Design (DDD), princípios SOLID e demonstração da utilização de Pub/Sub para envio de emails assíncronos.
 
 A API desenvolvida neste projeto tem como funcionalidades registrar usuários, autenticar (login) do usuário e recuperar senha do usuário. Para implementar essas funcionalidades, o projeto utiliza EntityFramework em conjunto com o banco de dados MySQL para persistência dos dados, a biblioteca MediatR para a implementação dos conceitos de Pub/Sub e conceitos avançados de programação orientada a eventos assíncronos.
 
